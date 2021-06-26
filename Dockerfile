@@ -2,7 +2,9 @@ FROM  node:15-alpine  as base
 WORKDIR /app
 COPY package*.json ./
 
-RUN npm install
+RUN npm install \
+    && apk add openssl \
+    && mkdir ./certs
 
 COPY . /app
 
