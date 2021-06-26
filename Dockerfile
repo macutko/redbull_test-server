@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install \
-    && apk add openssl \
+    && apk add certbot \
     && mkdir ./certs
 
 COPY . /app

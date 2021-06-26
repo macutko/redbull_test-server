@@ -1,7 +1,7 @@
 import * as bodyParser from 'body-parser';
 import express, {Express} from 'express';
 import {connectMongoose} from './models/db';
-import * as ratingController from "./api/controllers"
+import * as ratingController from './api/controllers';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
@@ -13,6 +13,8 @@ export default async function (): Promise<Express> {
 
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
+    app.use(express.static(__dirname + '/static', {dotfiles: 'allow'}));
+
     app.use(helmet());
     app.use(cors({
         credentials: true,
