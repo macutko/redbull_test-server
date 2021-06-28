@@ -63,7 +63,7 @@ const serve = async () => {
     const httpServer = http.createServer(app);
 
 
-    httpServer.listen(8080, () => {
+    httpServer.listen(80, () => {
         logger.info('HTTP Server running on port 80');
     });
 
