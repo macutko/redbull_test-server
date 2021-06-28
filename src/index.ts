@@ -23,7 +23,7 @@ const serve = async () => {
     app.use(helmet());
     app.use(cors({
         credentials: true,
-        origin: ['http://localhost:3000', 'https://redbull-test-client-macutko.vercel.app//'],
+        origin: ['http://localhost:3000', 'https://redbull-test-client-macutko.vercel.app'],
         allowedHeaders: ['Content-Type', 'Authorization']
     }));
 
