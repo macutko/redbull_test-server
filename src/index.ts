@@ -22,7 +22,7 @@ const serve = async () => {
     app.use(cors({
         credentials: true,
         // eslint-disable-next-line max-len
-        origin: ['http://localhost:3000', 'https://redbull-test-client-macutko.vercel.app', 'http://asterdigital.tech:60201'],
+        origin: ['http://localhost:3000', 'https://redbull-test-client-macutko.vercel.app', 'http://asterdigital.tech:80'],
         allowedHeaders: ['Content-Type', 'Authorization']
     }));
 
