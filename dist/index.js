@@ -68,6 +68,7 @@ dotenv_1.config();
 var serve = function () { return __awaiter(void 0, void 0, void 0, function () {
     var privateKey, certificate, ca, credentials, httpsServer, httpServer;
     return __generator(this, function (_a) {
+        logger_1.logger.info("Checkign the DB: " + process.env.CONNECTION_STRING);
         // Certificate
         if (!process.env.DEV) {
             privateKey = fs_1.default.readFileSync('/etc/letsencrypt/live/asterdigital.tech/privkey.pem', 'utf8');

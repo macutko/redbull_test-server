@@ -9,7 +9,7 @@ config();
 
 
 const serve = async () => {
-
+    logger.info(`Checkign the DB: ${process.env.CONNECTION_STRING}`);
     // Certificate
     if (!process.env.DEV) {
 
