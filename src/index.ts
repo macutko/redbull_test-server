@@ -28,9 +28,6 @@ const serve = async () => {
     }));
 
     app.use(cookieParser());
-    app.use((req, res) => {
-        res.send('Hello there !');
-    });
 
     //init db
     await connectMongoose();
