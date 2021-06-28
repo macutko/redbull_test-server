@@ -7,36 +7,30 @@ import * as https from 'https';
 
 config();
 
+logger.info(`Checkign the DB: ${process.env.CONNECTION_STRING}`);
+// Certificate
+if (!process.env.DEV) {
 
-const serve = async () => {
-    logger.info(`Checkign the DB: ${process.env.CONNECTION_STRING}`);
-    // Certificate
-    if (!process.env.DEV) {
-
-        const privateKey = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/privkey.pem', 'utf8');
-        const certificate = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/cert.pem', 'utf8');
-        const ca = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/chain.pem', 'utf8');
+    const privateKey = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/privkey.pem', 'utf8');
+    const certificate = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/cert.pem', 'utf8');
+    const ca = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/chain.pem', 'utf8');
 
 
-        const credentials = {
-            key: privateKey,
-            cert: certificate,
-            ca: ca
-        };
-        const httpsServer = https.createServer(credentials, app);
+    const credentials = {
+        key: privateKey,
+        cert: certificate,
+        ca: ca
+    };
+    const httpsServer = https.createServer(credentials, app);
 
-        httpsServer.listen(443, () => {
-            logger.info('HTTPS Server running on port 443');
-        });
-    }
-    const httpServer = http.createServer(app);
-
-
-    httpServer.listen(80, () => {
-        logger.info('HTTP Server running on port 80');
+    httpsServer.listen(443, () => {
+        logger.info('HTTPS Server running on port 443');
     });
+}
+
+const httpServer = http.createServer(app);
 
 
-};
-
-serve().then(() => logger.info('running')).catch(e => logger.error(e));
+httpServer.listen(80, () => {
+    logger.info('HTTP Server running on port 80');
+});

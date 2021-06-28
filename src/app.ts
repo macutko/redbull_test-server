@@ -23,7 +23,9 @@ export default async function (): Promise<Express> {
     }));
 
     app.use(cookieParser());
-
+    app.use((req, res) => {
+        res.send('Hello there !');
+    });
 
     //init db
     await connectMongoose();
