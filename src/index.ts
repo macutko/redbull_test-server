@@ -23,7 +23,7 @@ const serve = async () => {
     app.use(helmet());
     app.use(cors({
         credentials: true,
-        origin: ['http://localhost:3000', 'https://redbull-test-client-macutko.vercel.app', 'http://asterdigital.tech:74152'],
+        origin: ['http://localhost:3000', 'https://redbull-test-client-macutko.vercel.app', 'http://asterdigital.tech:60201'],
         allowedHeaders: ['Content-Type', 'Authorization']
     }));
 
