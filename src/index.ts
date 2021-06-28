@@ -1,8 +1,11 @@
 import * as http from 'http';
+import {config} from 'dotenv';
 import app from './app';
 import {logger} from './util/logger';
 import fs from 'fs';
 import * as https from 'https';
+
+config();
 
 
 const serve = async () => {

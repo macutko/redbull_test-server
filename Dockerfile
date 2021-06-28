@@ -2,9 +2,7 @@ FROM  node:15-alpine  as base
 WORKDIR /app
 COPY package*.json ./
 
-RUN npm install \
-    && apk add certbot \
-    && mkdir ./certs
+RUN npm install
 
 COPY . /app
 
