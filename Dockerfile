@@ -9,5 +9,6 @@ RUN npm install \
 COPY . /app
 
 FROM base as development
-EXPOSE $PORT
+EXPOSE 80
+EXPOSE 443
 ENTRYPOINT ["npm","run","start:local"]

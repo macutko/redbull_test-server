@@ -1,6 +1,6 @@
 import * as ratingSerive from '../../services';
 import {NextFunction, Request, Response} from 'express';
-import {logger} from "../../util/logger";
+import {logger} from '../../util/logger';
 
 export function rate(req: Request, res: Response, next: NextFunction): void {
     ratingSerive.rate({...req.body, ...req.cookies})

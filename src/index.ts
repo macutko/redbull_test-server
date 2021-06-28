@@ -1,41 +1,39 @@
-import {createServer} from 'http';
+import * as http from 'http';
 import app from './app';
 import {logger} from './util/logger';
+import fs from 'fs';
+import * as https from 'https';
 
 
 const serve = async () => {
 
-    // const execOptions: ExecSyncOptions = {encoding: 'utf-8', windowsHide: true};
-    // const key = './certs/key.pem';
-    // const certificate = './certs/certificate.pem';
+    // Certificate
+    if (!process.env.DEV) {
 
-    // if (!fs.existsSync(key) || !fs.existsSync(certificate)) {
-    //     try {
-    //         execSync('certbot version', execOptions);
-    //         execSync(
-    //             // eslint-disable-next-line max-len
-    //             `openssl req -x509 -newkey rsa:2048 -keyout ./certs/key.tmp.pem -out ${certificate} -days 365 -nodes -subj "/C=SK/ST=Bratislava/L=Bratislava/O=RedBull-test/CN=domacanas.hopto.org"`,
-    //             execOptions
-    //         );
-    //
-    //         execSync(`openssl rsa -in ./certs/key.tmp.pem -out ${key}`, execOptions);
-    //         execSync('rm ./certs/key.tmp.pem', execOptions);
-    //     } catch (error) {
-    //         logger.error(error);
-    //     }
-    // }
+        const privateKey = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/privkey.pem', 'utf8');
+        const certificate = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/cert.pem', 'utf8');
+        const ca = fs.readFileSync('/etc/letsencrypt/live/asterdigital.tech/chain.pem', 'utf8');
 
-    // const options = {
-    //     key: fs.readFileSync(key),
-    //     cert: fs.readFileSync(certificate),
-    //     passphrase: 'password'
-    // };
 
-    const server = createServer( await app());
-    logger.warn('Dear devs, please use winston for logging!');
+        const credentials = {
+            key: privateKey,
+            cert: certificate,
+            ca: ca
+        };
+        const httpsServer = https.createServer(credentials, app);
 
-    server.listen(process.env.PORT);
+        httpsServer.listen(443, () => {
+            logger.info('HTTPS Server running on port 443');
+        });
+    }
+    const httpServer = http.createServer(app);
+
+
+    httpServer.listen(80, () => {
+        logger.info('HTTP Server running on port 80');
+    });
+
 
 };
 
-serve().then(() => logger.info('server running on port:' + process.env.PORT)).catch(e => logger.error(e));
+serve().then(() => logger.info('running')).catch(e => logger.error(e));

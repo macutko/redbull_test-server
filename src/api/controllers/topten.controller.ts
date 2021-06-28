@@ -1,6 +1,6 @@
 import * as ratingSerive from '../../services';
 import {NextFunction, Request, Response} from 'express';
-import {logger} from "../../util/logger";
+import {logger} from '../../util/logger';
 
 export function topTen(req: Request, res: Response, next: NextFunction): void {
     ratingSerive.topTen()

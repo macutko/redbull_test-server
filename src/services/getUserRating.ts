@@ -1,5 +1,5 @@
-import RatingModel from "../models/rating/model";
-import {RatingDocument} from "../models/rating/interface";
+import RatingModel from '../models/rating/model';
+import {RatingDocument} from '../models/rating/interface';
 
 interface ItemProps {
     itemId: string,
@@ -7,7 +7,7 @@ interface ItemProps {
 }
 
 export async function getUserRating({...props}: ItemProps): Promise<number> {
-    let score = 0
+    const score = 0;
     if (props.userId) {
         const rating: RatingDocument = await RatingModel.findOne({
             $and: [
@@ -17,9 +17,9 @@ export async function getUserRating({...props}: ItemProps): Promise<number> {
         });
 
         if (rating) {
-            return rating.score
+            return rating.score;
         }
     }
-    return score
+    return score;
 
 }

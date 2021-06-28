@@ -1,6 +1,6 @@
-import {RatingDocument} from "../models/rating/interface";
+import {RatingDocument} from '../models/rating/interface';
 import RatingModel from '../models/rating/model';
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 import {v4 as uuidv4} from 'uuid';
 
 interface RatingProps {
@@ -20,25 +20,25 @@ export async function rate({...props}: RatingProps): Promise<mongoose.Types.Obje
         });
 
         if (rating) {
-            rating.score = props.score
-            await rating.save()
-            return null
+            rating.score = props.score;
+            await rating.save();
+            return null;
         }
-        const newRating: RatingDocument = await RatingModel.create({
+        await RatingModel.create({
             userId: props.userId,
             itemId: props.itemId,
             score: props.score
-        })
-        return null
+        });
+        return null;
     }
 
     const newUser = uuidv4();
 
-    const newRating: RatingDocument = await RatingModel.create({
+    await RatingModel.create({
         userId: newUser,
         itemId: props.itemId,
         score: props.score
-    })
-    return newUser
+    });
+    return newUser;
 
 }
